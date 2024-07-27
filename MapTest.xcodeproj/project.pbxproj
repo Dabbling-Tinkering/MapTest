@@ -10,6 +10,9 @@
 		56D1B83E2C552FA6005FE51A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B83D2C552FA6005FE51A /* AppDelegate.swift */; };
 		56D1B8402C552FA7005FE51A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56D1B83F2C552FA7005FE51A /* Assets.xcassets */; };
 		56D1B8432C552FA7005FE51A /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 56D1B8422C552FA7005FE51A /* Base */; };
+		56D1B84B2C552FBE005FE51A /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B84A2C552FBE005FE51A /* MapCell.swift */; };
+		56D1B8502C5530C6005FE51A /* GeneralError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B84F2C5530C6005FE51A /* GeneralError.swift */; };
+		56D1B8532C55311F005FE51A /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D1B8522C55311F005FE51A /* Coordinate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +21,9 @@
 		56D1B83F2C552FA7005FE51A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56D1B8422C552FA7005FE51A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		56D1B8442C552FA7005FE51A /* MapTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MapTest.entitlements; sourceTree = "<group>"; };
+		56D1B84A2C552FBE005FE51A /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
+		56D1B84F2C5530C6005FE51A /* GeneralError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
+		56D1B8522C55311F005FE51A /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,12 +56,31 @@
 		56D1B83C2C552FA6005FE51A /* MapTest */ = {
 			isa = PBXGroup;
 			children = (
+				56D1B8512C553105005FE51A /* Types */,
+				56D1B84C2C553068005FE51A /* Extensions */,
 				56D1B83D2C552FA6005FE51A /* AppDelegate.swift */,
 				56D1B83F2C552FA7005FE51A /* Assets.xcassets */,
 				56D1B8412C552FA7005FE51A /* MainMenu.xib */,
 				56D1B8442C552FA7005FE51A /* MapTest.entitlements */,
+				56D1B84A2C552FBE005FE51A /* MapCell.swift */,
 			);
 			path = MapTest;
+			sourceTree = "<group>";
+		};
+		56D1B84C2C553068005FE51A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		56D1B8512C553105005FE51A /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				56D1B84F2C5530C6005FE51A /* GeneralError.swift */,
+				56D1B8522C55311F005FE51A /* Coordinate.swift */,
+			);
+			path = Types;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,6 +112,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1540;
+				ORGANIZATIONNAME = "Charles Kerr";
 				TargetAttributes = {
 					56D1B8392C552FA6005FE51A = {
 						CreatedOnToolsVersion = 15.4;
@@ -128,7 +154,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56D1B84B2C552FBE005FE51A /* MapCell.swift in Sources */,
+				56D1B8502C5530C6005FE51A /* GeneralError.swift in Sources */,
 				56D1B83E2C552FA6005FE51A /* AppDelegate.swift in Sources */,
+				56D1B8532C55311F005FE51A /* Coordinate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
