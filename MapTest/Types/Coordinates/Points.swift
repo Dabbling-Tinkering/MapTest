@@ -3,16 +3,20 @@
 import Foundation
 
 // ==============================================================
-// 2D Coordinate
+// 2D Point
 // ==============================================================
-struct Coordinate {
-    static let zero = Coordinate(xlocation: 0, ylocation: 0)
+struct Point : Codable {
+    static let zero = Point(xlocation: 0, ylocation: 0)
     var xlocation = 0
     var ylocation = 0
     
     init(xlocation: Int = 0, ylocation: Int = 0) {
         self.xlocation = xlocation
         self.ylocation = ylocation
+    }
+    init(point3:Point3) {
+        self.xlocation = point3.xlocation
+        self.ylocation = point3.ylocation
     }
     
     init(description:String) throws {
@@ -32,23 +36,41 @@ struct Coordinate {
     }
 }
 
-extension Coordinate : CustomStringConvertible {
+extension Point : CustomStringConvertible {
     var description: String {
         return String(format:"%i,%i", xlocation,ylocation)
     }
 }
 
-extension Coordinate {
-    mutating func set(to value:Coordinate3){
+extension Point : Equatable {
+    static func == (lhs:Point,rhs:Point) -> Bool {
+        return lhs.xlocation == rhs.xlocation && lhs.ylocation == rhs.ylocation
+    }
+}
+
+extension Point : Comparable {
+    static func < (lhs:Point,rhs:Point) -> Bool {
+        if lhs.xlocation < rhs.xlocation {
+            return true
+        }
+        if lhs.xlocation > rhs.xlocation {
+            return false
+        }
+        return lhs.ylocation < rhs.ylocation
+    }
+}
+
+extension Point {
+    mutating func set(to value:Point3){
         self.xlocation = value.xlocation
         self.ylocation = value.ylocation
     }
-    func distance(to value:Coordinate) -> Double {
+    func distance(to value:Point) -> Double {
         let deltax = value.xlocation - self.xlocation
         let deltay = value.ylocation - self.ylocation
         return sqrt(pow(Double(deltax),2) + pow(Double(deltay),2))
     }
-    func distance(to value:Coordinate3) -> Double {
+    func distance(to value:Point3) -> Double {
         let deltax = value.xlocation - self.xlocation
         let deltay = value.ylocation - self.ylocation
         return sqrt(pow(Double(deltax),2) + pow(Double(deltay),2))
@@ -56,10 +78,10 @@ extension Coordinate {
 }
 
 // ==============================================================
-// 3D Coordinate
+// 3D Point
 // ==============================================================
-struct Coordinate3 {
-    static let zero = Coordinate3(xlocation: 0, ylocation: 0,altitude: 0 )
+struct Point3 : Codable {
+    static let zero = Point3(xlocation: 0, ylocation: 0,altitude: 0 )
     var xlocation = 0
     var ylocation = 0
     var altitude = 0
@@ -90,27 +112,56 @@ struct Coordinate3 {
         }
         altitude = tempz
     }
-    
+
+    init(point:Point,altitude:Int = 0 ) {
+        self.xlocation = point.xlocation
+        self.ylocation = point.ylocation
+        self.altitude = altitude
+    }
+
 }
 
-extension Coordinate3 : CustomStringConvertible {
+extension Point3 : CustomStringConvertible {
     var description: String {
         return String(format:"%i,%i,%i", xlocation,ylocation,altitude)
     }
 }
+extension Point3 : Equatable {
+    static func == (lhs:Point3,rhs:Point3) -> Bool {
+        return lhs.xlocation == rhs.xlocation && lhs.ylocation == rhs.ylocation && lhs.altitude == rhs.altitude
+    }
+}
 
-extension Coordinate3 {
-    mutating func set(to value:Coordinate){
+extension Point3 : Comparable {
+    static func < (lhs:Point3,rhs:Point3) -> Bool {
+        if lhs.xlocation < rhs.xlocation {
+            return true
+        }
+        if lhs.xlocation > rhs.xlocation {
+            return false
+        }
+        if lhs.ylocation < rhs.ylocation {
+            return true
+        }
+        if lhs.ylocation > rhs.ylocation {
+            return false
+        }
+        return lhs.altitude < rhs.altitude
+    }
+}
+
+extension Point3 {
+    mutating func set(to value:Point){
         self.xlocation = value.xlocation
         self.ylocation = value.ylocation
     }
     
-    func distance(to value:Coordinate) -> Double {
+    func distance(to value:Point) -> Double {
         let deltax = value.xlocation - self.xlocation
         let deltay = value.ylocation - self.ylocation
         return sqrt(pow(Double(deltax),2) + pow(Double(deltay),2))
     }
-    func distance(to value:Coordinate3) -> Double {
+    func distance(to value:Point3) -> Double {
         let deltax = value.xlocation - self.xlocation
         let deltay = value.ylocation - self.ylocation
         let deltaz = value.altitude - self.altitude
@@ -123,32 +174,45 @@ extension Coordinate3 {
 // Functions
 // ===============================================================
 
-func == (lhs:Coordinate3,rhs:Coordinate) -> Bool {
+// Equivalent
+func == (lhs:Point3,rhs:Point) -> Bool {
     return lhs.xlocation == rhs.xlocation && lhs.ylocation == rhs.ylocation
 }
-func == (lhs:Coordinate,rhs:Coordinate3) -> Bool {
-    return lhs.xlocation == rhs.xlocation && lhs.ylocation == rhs.ylocation
-}
-func == (lhs:Coordinate3,rhs:Coordinate3) -> Bool {
-    return lhs.xlocation == rhs.xlocation && lhs.ylocation == rhs.ylocation && lhs.altitude == rhs.altitude
-}
-func == (lhs:Coordinate,rhs:Coordinate) -> Bool {
+func == (lhs:Point,rhs:Point3) -> Bool {
     return lhs.xlocation == rhs.xlocation && lhs.ylocation == rhs.ylocation
 }
 
-func < (lhs:Coordinate,rhs:Coordinate) -> Bool {
-    return  lhs.xlocation < rhs.xlocation
+// Less then
+
+func < (lhs:Point3,rhs:Point) -> Bool {
+    if lhs.xlocation < rhs.xlocation {
+        return true
+    }
+    if lhs.xlocation > rhs.xlocation {
+        return false
+    }
+    return lhs.ylocation < rhs.ylocation
+}
+func < (lhs:Point,rhs:Point3) -> Bool {
+    if lhs.xlocation < rhs.xlocation {
+        return true
+    }
+    if lhs.xlocation > rhs.xlocation {
+        return false
+    }
+    return lhs.ylocation < rhs.ylocation
 }
 
-func distance(start:Coordinate,end:Coordinate) -> Double {
+// Distance
+func distance(start:Point,end:Point) -> Double {
     return start.distance(to: end)
 }
-func distance(start:Coordinate3,end:Coordinate3) -> Double {
+func distance(start:Point3,end:Point3) -> Double {
     return start.distance(to: end)
 }
-func distance(start:Coordinate,end:Coordinate3) -> Double {
+func distance(start:Point,end:Point3) -> Double {
     return start.distance(to: end)
 }
-func distance(start:Coordinate3,end:Coordinate) -> Double {
+func distance(start:Point3,end:Point) -> Double {
     return start.distance(to: end)
 }

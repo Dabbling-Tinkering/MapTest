@@ -11,9 +11,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let point1 = Coordinate(xlocation: 0, ylocation: 1)
-        let point2 = Coordinate(xlocation: 0,ylocation: 2)
-        Swift.print("Distance between \(point1) && \(point2) is: \(point1.distance(to: point2))")
+        do {
+            let saveURL = URL(filePath: "/Users/charles/Documents/Playground")
+            let map = try Map.loadMap(url: saveURL.appending(path: "test.map"))
+            try map.save(to: saveURL.appending(path: "test1.map"))
+        }
+        catch {
+            Swift.print(error)
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
